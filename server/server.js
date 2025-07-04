@@ -1,5 +1,5 @@
 const http = require('http');
-const productosRoute = require('./Routes/productos');
+const productosRoute = require('./server/Routes/productos');
 const { error } = require('console');
 
 const server = http.createServer((req, res) => {
