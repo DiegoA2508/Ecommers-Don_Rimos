@@ -5,9 +5,15 @@ export function getCart(){
 }
 
 export function addToCart(product){
-    if (typeof window === 'undefined') return;
     const cart = getCart();
-    cart.push(product);
+    const index = cart.findIndex(item => item.id === product.id);
+
+    if (index !== -1) {
+        cart[index].cantidad += 1;
+    } else {
+        cart.push({ ...product, cantidad: 1 });
+    }
+
     localStorage.setItem('cart',JSON.stringify(cart));
 }
 
@@ -17,8 +23,17 @@ export function clearCart(){
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-export function removeFromCart(productId){
-    if (typeof window === 'undefined') return;
-    const cart = getCart().filter(p => p.id !== productId);
+export function removeFromCart(id){
+    const cart = getCart();
+    const index = cart.findIndex(item => item.id === id);
+
+    if ( index !== -1) {
+        if(cart[index].cantidad > 1){
+            cart[index].cantidad -= 1;
+        } else {
+            cart.splice(index, 1);
+        }
+    }
+
     localStorage.setItem('cart', JSON.stringify(cart));
 }

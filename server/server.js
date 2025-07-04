@@ -1,24 +1,19 @@
-const http = require('http');
-const productosRoute = require('./server/Routes/productos');
-const { error } = require('console');
+const express = require('express');
+const cors = require('cors');
+const productosRoute = require('./Routes/productos');
+require('dotenv').config();
 
-const server = http.createServer((req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Content-Type', 'application/json');
+const app = express();
 
-    if (req.method === 'OPTIONS'){
-        return res.end();
-    }
+// Middleware
+app.use(cors());
+app.use(express.json());
 
-    if (req.url.startsWith('/api/productos')){
-        return productosRoute(req, res);
-    }
+// Rutas
+app.use('/api/productos', productosRoute);
 
-    res.statusCode = 404;
-    res.end(JSON.stringify({ error : 'Ruta no encontrada'}));
+// Inicio del servidor
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`🟢 Servidor Backend corriendo en http://localhost:${PORT}`);
 });
-
-server.listen(3001, () =>{
-    console.log('Servidor Backend corriendo en http://localhost:3001')
-})

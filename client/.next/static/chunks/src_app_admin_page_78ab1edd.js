@@ -20,10 +20,10 @@ function Admin() {
         nombre: '',
         descripcion: '',
         precio: '',
-        imagen: '',
         categoria: '',
         stock: ''
     });
+    const [archivoSeleccionado, setArchivoSeleccionado] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [mensaje, setMensaje] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const handleChange = (e)=>{
         setFormulario({
@@ -31,43 +31,56 @@ function Admin() {
             [e.target.name]: e.target.value
         });
     };
+    const handleArchivo = (e)=>{
+        setArchivoSeleccionado(e.target.files[0]);
+    };
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        const res = await fetch('http://localhost:3001/api/productos', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'aplication/json'
-            },
-            body: JSON.stringify({
-                ...formulario,
-                precio: parseFloat(formulario.precio),
-                stock: parseInt(formulario.stock)
-            })
-        });
-        if (res.ok) {
-            setMensaje(' Producto creado correctamente');
-            setFormulario({
-                nombre: '',
-                descripcion: '',
-                precio: '',
-                imagen: '',
-                categoria: '',
-                stock: ''
+        if (!archivoSeleccionado) {
+            setMensaje('Por favor selecciona una imagen');
+            return;
+        }
+        const formData = new FormData();
+        formData.append('imagen', archivoSeleccionado);
+        formData.append('nombre', formulario.nombre);
+        formData.append('descripcion', formulario.descripcion);
+        formData.append('precio', parseFloat(formulario.precio));
+        formData.append('categoria', formulario.categoria);
+        formData.append('stock', parseInt(formulario.stock));
+        try {
+            const res = await fetch('http://localhost:3001/api/productos', {
+                method: 'POST',
+                body: formData
             });
-        } else {
-            setMensaje(' Error al crear el producto');
+            if (res.ok) {
+                setMensaje('✅ Producto creado correctamente');
+                setFormulario({
+                    nombre: '',
+                    descripcion: '',
+                    precio: '',
+                    categoria: '',
+                    stock: ''
+                });
+                setArchivoSeleccionado(null);
+            } else {
+                const data = await res.json();
+                setMensaje(`❌ Error al crear el producto: ${data.error || 'Error desconocido'}`);
+            }
+        } catch (error) {
+            setMensaje('❌ Error al conectar con el servidor');
+            console.error(error);
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-        className: "p-8 max-w 2xl mx-auto",
+        className: "p-8 max-w-2xl mx-auto",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                 className: "text-2xl font-bold mb-4",
                 children: "Agregar Producto"
             }, void 0, false, {
                 fileName: "[project]/src/app/admin/page.js",
-                lineNumber: 43,
-                columnNumber: 13
+                lineNumber: 69,
+                columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                 onSubmit: handleSubmit,
@@ -83,8 +96,8 @@ function Admin() {
                         className: "border p-2 rounded"
                     }, void 0, false, {
                         fileName: "[project]/src/app/admin/page.js",
-                        lineNumber: 46,
-                        columnNumber: 17
+                        lineNumber: 72,
+                        columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
                         name: "descripcion",
@@ -95,8 +108,8 @@ function Admin() {
                         className: "border p-2 rounded"
                     }, void 0, false, {
                         fileName: "[project]/src/app/admin/page.js",
-                        lineNumber: 47,
-                        columnNumber: 17
+                        lineNumber: 81,
+                        columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                         type: "number",
@@ -108,37 +121,35 @@ function Admin() {
                         className: "border p-2 rounded"
                     }, void 0, false, {
                         fileName: "[project]/src/app/admin/page.js",
-                        lineNumber: 48,
-                        columnNumber: 17
+                        lineNumber: 89,
+                        columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                        type: "text",
-                        name: "imagen",
-                        placeholder: "URL de imagen",
-                        value: formulario.imagen,
-                        onChange: handleChange,
+                        type: "file",
+                        onChange: handleArchivo,
+                        accept: "image/*",
                         required: true,
                         className: "border p-2 rounded"
                     }, void 0, false, {
                         fileName: "[project]/src/app/admin/page.js",
-                        lineNumber: 49,
-                        columnNumber: 17
+                        lineNumber: 98,
+                        columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                         type: "text",
                         name: "categoria",
-                        placeholder: "Categoria",
+                        placeholder: "Categoría",
                         value: formulario.categoria,
                         onChange: handleChange,
                         required: true,
                         className: "border p-2 rounded"
                     }, void 0, false, {
                         fileName: "[project]/src/app/admin/page.js",
-                        lineNumber: 50,
-                        columnNumber: 17
+                        lineNumber: 105,
+                        columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                        type: "text",
+                        type: "number",
                         name: "stock",
                         placeholder: "Stock",
                         value: formulario.stock,
@@ -147,8 +158,8 @@ function Admin() {
                         className: "border p-2 rounded"
                     }, void 0, false, {
                         fileName: "[project]/src/app/admin/page.js",
-                        lineNumber: 51,
-                        columnNumber: 17
+                        lineNumber: 114,
+                        columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         type: "submit",
@@ -156,31 +167,31 @@ function Admin() {
                         children: "Crear Producto"
                     }, void 0, false, {
                         fileName: "[project]/src/app/admin/page.js",
-                        lineNumber: 52,
-                        columnNumber: 17
+                        lineNumber: 123,
+                        columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/admin/page.js",
-                lineNumber: 45,
-                columnNumber: 13
+                lineNumber: 71,
+                columnNumber: 7
             }, this),
             mensaje && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                className: "mt-4",
+                className: "mt-4 text-sm text-center text-gray-700",
                 children: mensaje
             }, void 0, false, {
                 fileName: "[project]/src/app/admin/page.js",
-                lineNumber: 55,
-                columnNumber: 25
+                lineNumber: 131,
+                columnNumber: 19
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/admin/page.js",
-        lineNumber: 42,
-        columnNumber: 9
+        lineNumber: 68,
+        columnNumber: 5
     }, this);
 }
-_s(Admin, "WFEGAtGBGRZ5zNYU7ug5x0Evi2U=");
+_s(Admin, "KJZwsc7TXm8QHnQm7la2s5MzpAM=");
 _c = Admin;
 var _c;
 __turbopack_context__.k.register(_c, "Admin");

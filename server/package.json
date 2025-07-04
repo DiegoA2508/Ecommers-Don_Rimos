@@ -10,6 +10,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "mysql2": "^3.14.1"
+    "cloudinary": "^2.7.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.1",
+    "express": "^5.1.0",
+    "formidable": "^3.5.4",
+    "multer": "^2.0.1",
+    "mysql2": "^3.14.1",
+    "streamifier": "^0.1.1"
   }
 }
