@@ -69,7 +69,7 @@ function Home() {
     const [toastVisible, setToastVisible] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const { addToCart } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$CartContext$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCart"])();
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        fetch('http://localhost:3001/api/productos').then((res)=>res.json()).then((data)=>{
+        fetch('http://192.168.18.220:3001/api/productos').then((res)=>res.json()).then((data)=>{
             if (Array.isArray(data)) setProductos(data);
         });
     }, []);
@@ -82,22 +82,11 @@ function Home() {
         className: "p-8 bg-[#fdf8f3] min-h-screen",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                className: "text-4xl font-bold text-brown-800 mb-8 text-center font-serif",
+                className: "text-4xl font-bold text-orange-500 mb-8 text-center font-serif",
                 children: "Don Rimos Chocolate Tradicional 🍫"
             }, void 0, false, {
                 fileName: "[project]/src/app/page.js",
                 lineNumber: 28,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                type: "text",
-                placeholder: "Buscar productos...",
-                value: busqueda,
-                onChange: (e)=>setBusqueda(e.target.value),
-                className: "w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg mb-6 block mx-auto"
-            }, void 0, false, {
-                fileName: "[project]/src/app/page.js",
-                lineNumber: 32,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -111,7 +100,7 @@ function Home() {
                                 className: "w-full h-52 object-cover rounded-xl mb-4"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/page.js",
-                                lineNumber: 47,
+                                lineNumber: 39,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -119,7 +108,7 @@ function Home() {
                                 children: producto.nombre
                             }, void 0, false, {
                                 fileName: "[project]/src/app/page.js",
-                                lineNumber: 48,
+                                lineNumber: 40,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -127,7 +116,7 @@ function Home() {
                                 children: producto.descripcion
                             }, void 0, false, {
                                 fileName: "[project]/src/app/page.js",
-                                lineNumber: 49,
+                                lineNumber: 41,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -138,7 +127,7 @@ function Home() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/page.js",
-                                lineNumber: 50,
+                                lineNumber: 42,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -147,18 +136,18 @@ function Home() {
                                 children: "Agregar al carrito"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/page.js",
-                                lineNumber: 53,
+                                lineNumber: 45,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, producto.id, true, {
                         fileName: "[project]/src/app/page.js",
-                        lineNumber: 46,
+                        lineNumber: 38,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/app/page.js",
-                lineNumber: 40,
+                lineNumber: 32,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Toast$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -166,7 +155,7 @@ function Home() {
                 message: "Producto agregado al carrito 🛒"
             }, void 0, false, {
                 fileName: "[project]/src/app/page.js",
-                lineNumber: 63,
+                lineNumber: 55,
                 columnNumber: 7
             }, this)
         ]

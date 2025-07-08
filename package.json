@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "lucide-react": "^0.525.0",
-    "mysql2": "^3.14.1"
+    "mysql2": "^3.14.1",
+    "streamifier": "^0.1.1"
   }
 }

@@ -10,7 +10,7 @@ export default function Home() {
   const { addToCart } = useCart();
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/productos')
+    fetch('http://192.168.18.220:3001/api/productos')
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) setProductos(data);
@@ -25,17 +25,9 @@ export default function Home() {
 
   return (
     <main className="p-8 bg-[#fdf8f3] min-h-screen">
-      <h1 className="text-4xl font-bold text-brown-800 mb-8 text-center font-serif">
+      <h1 className="text-4xl font-bold text-orange-500 mb-8 text-center font-serif">
         Don Rimos Chocolate Tradicional 🍫
       </h1>
-
-      <input
-        type="text"
-        placeholder="Buscar productos..."
-        value={busqueda}
-        onChange={(e) => setBusqueda(e.target.value)}
-        className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg mb-6 block mx-auto"
-      />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {productos
