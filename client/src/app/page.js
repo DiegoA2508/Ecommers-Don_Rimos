@@ -10,7 +10,7 @@ export default function Home() {
   const { addToCart } = useCart();
 
   useEffect(() => {
-    fetch('http://192.168.18.220:3001/api/productos')
+    fetch('http://localhost:3001/api/productos')
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) setProductos(data);
@@ -37,14 +37,14 @@ export default function Home() {
           .map(producto => (
             <div key={producto.id} className="bg-white rounded-2xl shadow-md p-6 flex flex-col justify-between">
               <img src={producto.imagen} alt={producto.nombre} className="w-full h-52 object-cover rounded-xl mb-4" />
-              <h2 className="text-xl font-bold text-brown-800">{producto.nombre}</h2>
+              <h2 className="text-black text-xl font-bold text-brown-800">{producto.nombre}</h2>
               <p className="text-sm text-gray-700">{producto.descripcion}</p>
               <p className="text-lg text-green-700 font-semibold mt-2">
-                ${producto.precio.toLocaleString('es-CO')}
+                ${Number(producto.precio).toLocaleString('es-CO')}
               </p>
               <button
                 onClick={() => handleAdd(producto)}
-                className="mt-4 bg-brown-700 hover:bg-brown-800 text-white py-2 rounded-lg"
+                className="mt-4 bg-brown-700 hover:bg-brown-800 text-orange-500 py-2 rounded-lg border"
               >
                 Agregar al carrito
               </button>

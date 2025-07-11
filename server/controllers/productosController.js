@@ -1,11 +1,23 @@
 const db = require('../db');
 
 function obtenerProductos(req, res) {
-    db.query('SELECT * FROM productos', (err, results) => {
+    const busqueda = req.query.q || '';
+
+    let sql = 'SELECT * FROM productos';
+    const valores = [];
+
+    if (busqueda) {
+        sql += ` WHERE nombre LIKE ? OR descripcion LIKE ? OR categoria LIKE ?`;
+        const valorBusqueda = `%${busqueda}%`;
+        valores.push(valorBusqueda, valorBusqueda, valorBusqueda);
+    }
+
+    db.query(sql, valores, (err, results) => {
         if (err) return res.status(500).json({ error: 'Error al obtener los productos' });
         res.json(results);
     });
 }
+
 
 function obtenerProductosPorId(req, res) {
     const id = req.params.id;

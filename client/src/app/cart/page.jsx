@@ -9,7 +9,7 @@ export default function cartPage() {
 
   return (
     <main className="p-8 bg-[#fdf8f3] min-h-screen">
-      <h1 className="text-3xl font-bold text-brown-800 mb-6 text-center">
+      <h1 className="text-3xl font-bold text-orange-500 mb-6 text-center">
         🛒 Tu Carrito
       </h1>
 
@@ -47,7 +47,7 @@ export default function cartPage() {
               </div>
 
               {/* Columna 3: Cantidad + botón */}
-              <div className="text-center">
+              <div className="text-center text-black">
                 {item.cantidad}
                 <br />
                 <button

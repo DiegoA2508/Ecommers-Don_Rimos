@@ -69,7 +69,7 @@ function Home() {
     const [toastVisible, setToastVisible] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const { addToCart } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$CartContext$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCart"])();
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        fetch('http://192.168.18.220:3001/api/productos').then((res)=>res.json()).then((data)=>{
+        fetch('http://localhost:3001/api/productos').then((res)=>res.json()).then((data)=>{
             if (Array.isArray(data)) setProductos(data);
         });
     }, []);
@@ -104,7 +104,7 @@ function Home() {
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "text-xl font-bold text-brown-800",
+                                className: "text-black text-xl font-bold text-brown-800",
                                 children: producto.nombre
                             }, void 0, false, {
                                 fileName: "[project]/src/app/page.js",
@@ -123,7 +123,7 @@ function Home() {
                                 className: "text-lg text-green-700 font-semibold mt-2",
                                 children: [
                                     "$",
-                                    producto.precio.toLocaleString('es-CO')
+                                    Number(producto.precio).toLocaleString('es-CO')
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/page.js",
@@ -132,7 +132,7 @@ function Home() {
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: ()=>handleAdd(producto),
-                                className: "mt-4 bg-brown-700 hover:bg-brown-800 text-white py-2 rounded-lg",
+                                className: "mt-4 bg-brown-700 hover:bg-brown-800 text-orange-500 py-2 rounded-lg border",
                                 children: "Agregar al carrito"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/page.js",
