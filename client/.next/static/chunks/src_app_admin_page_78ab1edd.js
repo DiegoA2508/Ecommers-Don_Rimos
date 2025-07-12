@@ -23,8 +23,9 @@ function Admin() {
         categoria: '',
         stock: ''
     });
-    const [archivoSeleccionado, setArchivoSeleccionado] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [archivosSeleccionados, setArchivosSeleccionados] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [mensaje, setMensaje] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [Previews, setPreviews] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const handleChange = (e)=>{
         setFormulario({
             ...formulario,
@@ -32,16 +33,21 @@ function Admin() {
         });
     };
     const handleArchivo = (e)=>{
-        setArchivoSeleccionado(e.target.files[0]);
+        const archivos = Array.from(e.target.files);
+        setArchivosSeleccionados(archivos);
+        const previews = archivos.map((archivo)=>URL.createObjectURL(archivo));
+        setPreviews(previews);
     };
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        if (!archivoSeleccionado) {
-            setMensaje('Por favor selecciona una imagen');
+        if (!archivosSeleccionados || archivosSeleccionados.length === 0) {
+            setMensaje('Por favor selecciona al menos una imagen');
             return;
         }
         const formData = new FormData();
-        formData.append('imagen', archivoSeleccionado);
+        archivosSeleccionados.forEach((archivo)=>{
+            formData.append('imagenes', archivo);
+        });
         formData.append('nombre', formulario.nombre);
         formData.append('descripcion', formulario.descripcion);
         formData.append('precio', parseFloat(formulario.precio));
@@ -61,7 +67,8 @@ function Admin() {
                     categoria: '',
                     stock: ''
                 });
-                setArchivoSeleccionado(null);
+                setArchivosSeleccionados([]);
+                setPreviews([]);
             } else {
                 const data = await res.json();
                 setMensaje(`❌ Error al crear el producto: ${data.error || 'Error desconocido'}`);
@@ -72,14 +79,14 @@ function Admin() {
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-        className: "p-8 max-w-2xl mx-auto",
+        className: "text-black p-8 max-w-2xl mx-auto",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                className: "text-2xl font-bold mb-4",
+                className: "text-2xl font-bold mb-4 text-center",
                 children: "Agregar Producto"
             }, void 0, false, {
                 fileName: "[project]/src/app/admin/page.js",
-                lineNumber: 69,
+                lineNumber: 78,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -96,7 +103,7 @@ function Admin() {
                         className: "border p-2 rounded"
                     }, void 0, false, {
                         fileName: "[project]/src/app/admin/page.js",
-                        lineNumber: 72,
+                        lineNumber: 81,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -108,7 +115,7 @@ function Admin() {
                         className: "border p-2 rounded"
                     }, void 0, false, {
                         fileName: "[project]/src/app/admin/page.js",
-                        lineNumber: 81,
+                        lineNumber: 90,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -117,17 +124,6 @@ function Admin() {
                         placeholder: "Precio",
                         value: formulario.precio,
                         onChange: handleChange,
-                        required: true,
-                        className: "border p-2 rounded"
-                    }, void 0, false, {
-                        fileName: "[project]/src/app/admin/page.js",
-                        lineNumber: 89,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                        type: "file",
-                        onChange: handleArchivo,
-                        accept: "image/*",
                         required: true,
                         className: "border p-2 rounded"
                     }, void 0, false, {
@@ -145,7 +141,7 @@ function Admin() {
                         className: "border p-2 rounded"
                     }, void 0, false, {
                         fileName: "[project]/src/app/admin/page.js",
-                        lineNumber: 105,
+                        lineNumber: 108,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -158,22 +154,87 @@ function Admin() {
                         className: "border p-2 rounded"
                     }, void 0, false, {
                         fileName: "[project]/src/app/admin/page.js",
-                        lineNumber: 114,
+                        lineNumber: 118,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex flex-col gap-2",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-center gap-4",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-gray-700 text-sm",
+                                        children: archivosSeleccionados ? archivosSeleccionados.name : 'Ningún archivo Seleccionado'
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/admin/page.js",
+                                        lineNumber: 130,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        type: "button",
+                                        onClick: ()=>document.getElementById('inputArchivo').click(),
+                                        className: "bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded",
+                                        children: "Seleccionar Archivo"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/admin/page.js",
+                                        lineNumber: 134,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                        id: "inputArchivo",
+                                        type: "file",
+                                        multiple: true,
+                                        onChange: handleArchivo,
+                                        accept: "image/*",
+                                        required: true,
+                                        className: "border p-2 rounded hidden"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/admin/page.js",
+                                        lineNumber: 142,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/admin/page.js",
+                                lineNumber: 129,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "grid grid-cols-3 gap-2 mt-2",
+                                children: Previews.map((src, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                        src: src,
+                                        alt: `Preview ${index}`,
+                                        className: "h-20 w-full object-cover border rounded"
+                                    }, index, false, {
+                                        fileName: "[project]/src/app/admin/page.js",
+                                        lineNumber: 155,
+                                        columnNumber: 15
+                                    }, this))
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/admin/page.js",
+                                lineNumber: 153,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/app/admin/page.js",
+                        lineNumber: 128,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         type: "submit",
-                        className: "bg-brown-700 hover:bg-brown-800 text-white py-2 px-4 rounded",
+                        className: "bg-orange-500 hover:bg-orange-600 text-white border py-2 px-4 rounded",
                         children: "Crear Producto"
                     }, void 0, false, {
                         fileName: "[project]/src/app/admin/page.js",
-                        lineNumber: 123,
+                        lineNumber: 166,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/admin/page.js",
-                lineNumber: 71,
+                lineNumber: 80,
                 columnNumber: 7
             }, this),
             mensaje && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -181,17 +242,17 @@ function Admin() {
                 children: mensaje
             }, void 0, false, {
                 fileName: "[project]/src/app/admin/page.js",
-                lineNumber: 131,
+                lineNumber: 174,
                 columnNumber: 19
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/admin/page.js",
-        lineNumber: 68,
+        lineNumber: 77,
         columnNumber: 5
     }, this);
 }
-_s(Admin, "KJZwsc7TXm8QHnQm7la2s5MzpAM=");
+_s(Admin, "L789J6S7ahpJINz2lwMWxyhWU74=");
 _c = Admin;
 var _c;
 __turbopack_context__.k.register(_c, "Admin");

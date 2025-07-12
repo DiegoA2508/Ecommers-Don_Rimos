@@ -36,7 +36,7 @@ export default function Home() {
           )
           .map(producto => (
             <div key={producto.id} className="bg-white rounded-2xl shadow-md p-6 flex flex-col justify-between">
-              <img src={producto.imagen} alt={producto.nombre} className="w-full h-52 object-cover rounded-xl mb-4" />
+              <img src={producto.imagenes} alt={producto.nombre} className="w-full h-52 object-cover rounded-xl mb-4" />
               <h2 className="text-black text-xl font-bold text-brown-800">{producto.nombre}</h2>
               <p className="text-sm text-gray-700">{producto.descripcion}</p>
               <p className="text-lg text-green-700 font-semibold mt-2">

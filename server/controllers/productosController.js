@@ -25,22 +25,24 @@ function obtenerProductosPorId(req, res) {
     db.query('SELECT * FROM productos WHERE id = ?', [id], (err, result) => {
         if (err) return res.status(500).json({ error: 'Error' });
         if (result.length === 0) return res.status(404).json({ error: 'No encontrado' });
-        res.json(rows[0]);
+        res.json(result[0]);
     });
 }
 
 function crearProducto(producto, res) {
-  const { nombre, descripcion, precio, imagen, categoria, stock } = producto;
+  const { nombre, descripcion, precio, imagenes, categoria, stock } = producto;
   const query = `
     INSERT INTO productos
-      (nombre, descripcion, precio, imagen, categoria, stock, creado_en)
+      (nombre, descripcion, precio, imagenes, categoria, stock, creado_en)
     VALUES (?, ?, ?, ?, ?, ?, NOW())
   `;
-  db.query(query, [nombre, descripcion, precio, imagen, categoria, stock], (err, result) => {
-    if (err) {
-      console.error('MySQL error:', err);
-      return res.status(500).json({ error: 'Error al insertar producto' });
-    }
+  db.query(
+    query, [nombre, descripcion, precio, imagenes, categoria, stock], 
+    (err, result) => {
+        if (err) {
+        console.error('MySQL error:', err);
+        return res.status(500).json({ error: 'Error al insertar producto' });
+        }
     res.status(201).json({ id: result.insertId });
   });
 }
@@ -48,17 +50,20 @@ function crearProducto(producto, res) {
 
 function actualizarProducto(req, res) {
     const id = req.params.id;
-    const { nombre, descripcion, precio, imagen, categoria, stock } = req.body;
+    const { nombre, descripcion, precio, imagenes, categoria, stock } = req.body;
 
     const query = `
         UPDATE productos 
-        SET nombre=?, descripcion=?, precio=?, imagen=?, categoria=?, stock=?
+        SET nombre=?, descripcion=?, precio=?, imagenes=?, categoria=?, stock=?
         WHERE id=?
     `;
 
-    db.query(query, [nombre, descripcion, precio, imagen, categoria, stock, id], (err) => {
-        if (err) return res.status(500).json({ error: 'Error al actualizar el producto' });
-        res.json({ mensaje: 'Producto actualizado' });
+    db.query(
+        query, 
+        [nombre, descripcion, precio, imagen, imagenes, categoria, stock, id], 
+        (err) => {
+            if (err) return res.status(500).json({ error: 'Error al actualizar el producto' });
+            res.json({ mensaje: 'Producto actualizado' });
     });
 }
 
