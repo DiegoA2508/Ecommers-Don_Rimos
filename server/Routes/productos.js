@@ -5,7 +5,8 @@ const {
     crearProducto, 
     obtenerProductos, 
     obtenerProductosPorId, 
-    eliminarProducto 
+    eliminarProducto, 
+    actualizarProducto
 } = require('../controllers/productosController');
 
 const router = express.Router();
@@ -28,7 +29,7 @@ router.post('/', upload.array('imagenes'), async (req, res) => {
       archivos.map((archivo) => 
         new Promise((resolve, reject) =>{
           const stream = cloudinary.uploader.upload_stream(
-            { folder: 'prodcutos' },
+            { folder: 'productos' },
             (err, url) => (err ? reject(err) : resolve(url.secure_url))
           );
           streamifier.createReadStream(archivo.buffer).pipe(stream);
@@ -53,15 +54,48 @@ router.post('/', upload.array('imagenes'), async (req, res) => {
   }
 });
 
-router.put('/:id', express.json(), async (req, res) => {
-  // Si quieres soportar re-subida de imagen, habría que anidar multer aquí también
-  const actualizado = {
-    ...req.body,
-    precio: parseFloat(req.body.precio),
-    stock:  parseInt(req.body.stock, 10),
-  };
-  const id = req.params.id;
-  eliminarProducto; // placeholder, implementa tu controlador de update
+router.put('/:id', upload.array('imagenes'), async (req, res) => {
+  try {
+    const archivos = req.files;
+    let imagenes = [];
+
+    if (archivos && archivos.length > 0){
+      const streamifier = require('streamifier');
+      imagenes = await Promise.all(
+        archivos.map((archivo) => 
+        new Promise((resolve, reject) => {
+          const stream = cloudinary.uploader.upload_stream(
+            { folder: 'productos' },
+            (err, url) => (err ? reject(err) : resolve(url.secure_url))
+          );
+          streamifier.createReadStream(archivo.buffer).pipe(stream);
+          })
+        ) 
+      );
+    }
+
+    // Construye el objeto actualizado
+    const actualizado = {
+      nombre: req.body.nombre,
+      descripcion: req.body.descripcion,
+      precio: parseFloat(req.body.precio),
+      categoria: req.body.categoria,
+      stock: parseInt(req.body.stock, 10),
+    };
+
+    // Si hay nuevas imágenes, actualiza el campo
+    if (imagenes.length > 0){
+      actualizado.imagenes = JSON.stringify(imagenes);
+    }
+
+    const id = req.params.id;
+    await actualizarProducto(id, actualizado, res);
+
+    //res.json({ mensaje: 'Producto actualizado correctamente', actualizado });
+  } catch (error) {
+      console.error('Error al actualizar el producto:', error);
+      res.status(500).json({ error: 'Error al actualizar el producto:'})
+  }
 });
 
 router.delete('/:id', eliminarProducto);

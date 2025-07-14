@@ -1,8 +1,9 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
+  "/admin/actualizar/page": "app/admin/actualizar/page.js",
+  "/admin/agregar/page": "app/admin/agregar/page.js",
+  "/admin/eliminar/page": "app/admin/eliminar/page.js",
   "/admin/page": "app/admin/page.js",
-  "/cart/page": "app/cart/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/page": "app/page.js",
-  "/productos/[id]/page": "app/productos/[id]/page.js"
+  "/page": "app/page.js"
 }

@@ -78,7 +78,7 @@ function Home() {
     const { addToCart } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$CartContext$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCart"])();
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Home.useEffect": ()=>{
-            fetch('http://localhost:3001/api/productos').then({
+            fetch('http://192.168.18.220:3001/api/productos').then({
                 "Home.useEffect": (res)=>res.json()
             }["Home.useEffect"]).then({
                 "Home.useEffect": (data)=>{
@@ -109,7 +109,7 @@ function Home() {
                         className: "bg-white rounded-2xl shadow-md p-6 flex flex-col justify-between",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                src: producto.imagenes,
+                                src: producto.imagen,
                                 alt: producto.nombre,
                                 className: "w-full h-52 object-cover rounded-xl mb-4"
                             }, void 0, false, {

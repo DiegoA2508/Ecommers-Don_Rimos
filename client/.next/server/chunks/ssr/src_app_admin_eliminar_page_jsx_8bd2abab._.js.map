@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Diego/Documents/Ecommers%20Don%20Rimos/client/src/app/admin/eliminar/page.jsx"],"sourcesContent":["'use client'\r\n\r\nexport default function EliminarProducto(){\r\n    return(\r\n        <main className=\"p-8 max-w-xl mx-auto text-black\">\r\n            <h1 className=\"text-2xl font-bold mb-4 text-center\">Eliminar Producto</h1>\r\n            <p className=\"text-center text-gray-600\">Aquí se listaran los productos con la opción de eliminarlos</p>\r\n             \r\n        </main>\r\n    )\r\n}"],"names":[],"mappings":";;;;AAAA;;AAEe,SAAS;IACpB,qBACI,8OAAC;QAAK,WAAU;;0BACZ,8OAAC;gBAAG,WAAU;0BAAsC;;;;;;0BACpD,8OAAC;gBAAE,WAAU;0BAA4B;;;;;;;;;;;;AAIrD","debugId":null}}]
+}

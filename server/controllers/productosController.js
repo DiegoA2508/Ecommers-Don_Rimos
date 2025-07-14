@@ -14,7 +14,21 @@ function obtenerProductos(req, res) {
 
     db.query(sql, valores, (err, results) => {
         if (err) return res.status(500).json({ error: 'Error al obtener los productos' });
-        res.json(results);
+        
+        // Extrae solo la primera imagen del array JSON
+        const productosConImagenPrincipal = results.map(p => {
+            let imagen = '';
+
+            try {
+                const imagenes = JSON.parse(p.imagenes);
+                imagen = Array.isArray(imagenes) ? imagenes[0] : '';
+            } catch {
+                imagen = '';
+            }
+
+            return { ...p, imagen };
+        });
+        res.json(productosConImagenPrincipal);
     });
 }
 
@@ -48,9 +62,8 @@ function crearProducto(producto, res) {
 }
 
 
-function actualizarProducto(req, res) {
-    const id = req.params.id;
-    const { nombre, descripcion, precio, imagenes, categoria, stock } = req.body;
+function actualizarProducto(id, data, res) {
+    const { nombre, descripcion, precio, imagenes, categoria, stock } = data;
 
     const query = `
         UPDATE productos 
@@ -60,7 +73,7 @@ function actualizarProducto(req, res) {
 
     db.query(
         query, 
-        [nombre, descripcion, precio, imagen, imagenes, categoria, stock, id], 
+        [nombre, descripcion, precio, imagenes, categoria, stock, id], 
         (err) => {
             if (err) return res.status(500).json({ error: 'Error al actualizar el producto' });
             res.json({ mensaje: 'Producto actualizado' });
